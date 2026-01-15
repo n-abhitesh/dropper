@@ -4,12 +4,28 @@ const DEFAULT_PORT = 3001;
 const RECONNECT_DELAY_INITIAL = 1000;
 const RECONNECT_DELAY_MAX = 10000;
 
+/**
+ * Builds the WebSocket signaling URL.
+ * 
+ * Priority:
+ * 1. VITE_SIGNALING_URL environment variable (for production)
+ * 2. Local development fallback (localhost:3001)
+ * 
+ * For Railway deployment, set VITE_SIGNALING_URL to: wss://your-app.railway.app
+ */
 function buildSignalingUrl() {
   // Use environment variable for backend URL in production
   const backendUrl = import.meta.env.VITE_SIGNALING_URL;
   if (backendUrl) {
-    return backendUrl;
+    // Ensure the URL has the correct protocol
+    if (backendUrl.startsWith("ws://") || backendUrl.startsWith("wss://")) {
+      return backendUrl;
+    }
+    // If URL doesn't have protocol, determine based on current page
+    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+    return `${protocol}//${backendUrl}`;
   }
+  
   // Fallback for local development
   const { protocol, hostname } = window.location;
   const wsProtocol = protocol === "https:" ? "wss:" : "ws:";
