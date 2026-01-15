@@ -1,0 +1,609 @@
+.app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(circle at top, #07131f 0, #02070c 45%, #000000 100%);
+  color: #e5ffe5;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  border-bottom: 1px solid rgba(72, 255, 163, 0.25);
+  backdrop-filter: blur(16px);
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.75),
+    rgba(0, 0, 0, 0.4)
+  );
+}
+
+.app-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-mark {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  border: 2px solid #48ffa3;
+  box-shadow: 0 0 20px rgba(72, 255, 163, 0.8),
+    0 0 40px rgba(72, 255, 163, 0.3);
+}
+
+.app-header h1 {
+  font-size: 20px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.app-subtitle {
+  margin: 0;
+  font-size: 12px;
+  color: #8fe5c0;
+}
+
+.device-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(3, 30, 24, 0.9);
+  border: 1px solid rgba(72, 255, 163, 0.4);
+}
+
+.device-color-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.9);
+}
+
+.device-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.device-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #7fbba0;
+}
+
+.device-name {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.app-main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 24px;
+  padding: 24px 32px 32px;
+}
+
+@media (max-width: 900px) {
+  .app-main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.radar-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.radar-wrapper {
+  width: 100%;
+  max-width: 520px;
+}
+
+.radar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.radar-title {
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: #8fe5c0;
+}
+
+.radar-status {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.radar-status-connecting {
+  color: #ffdd99;
+}
+
+.radar-status-open {
+  color: #9fffbf;
+}
+
+.radar-status-closed,
+.radar-status-error {
+  color: #ff9f9f;
+}
+
+.radar-shell {
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  background: radial-gradient(circle, #062217 0, #020805 65%, #000000 100%);
+  box-shadow:
+    0 0 40px rgba(0, 0, 0, 0.9),
+    0 0 80px rgba(0, 0, 0, 0.8);
+}
+
+.radar-surface {
+  position: absolute;
+  inset: 0;
+}
+
+.radar-circles {
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  background-image: radial-gradient(
+      circle at center,
+      rgba(111, 239, 177, 0.4) 0,
+      transparent 1px
+    ),
+    radial-gradient(circle at center, transparent 0, transparent 25%, #04130c 26%);
+  background-size: 220px 220px, 100% 100%;
+  opacity: 0.7;
+}
+
+.radar-sweep {
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(0, 0, 0, 0) 0deg,
+    rgba(134, 255, 186, 0.4) 40deg,
+    rgba(0, 0, 0, 0) 80deg
+  );
+  animation: radar-rotate 4s linear infinite;
+  mix-blend-mode: screen;
+}
+
+@keyframes radar-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.radar-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #e6ffee;
+}
+
+.radar-node-self {
+  top: 50%;
+  left: 50%;
+}
+
+.radar-node-peer {
+  top: var(--y);
+  left: var(--x);
+}
+
+.radar-node-dot {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background-color: var(--node-color, #48ffa3);
+  box-shadow:
+    0 0 12px rgba(72, 255, 163, 0.8),
+    0 0 28px rgba(72, 255, 163, 0.6);
+}
+
+.radar-node-self .radar-node-dot {
+  width: 18px;
+  height: 18px;
+}
+
+/**
+ * Radar node labels - positioned above nodes for horizontal, readable text.
+ * 
+ * Labels display device names horizontally (left-to-right) above nodes.
+ * Full names shown as tooltips on hover to prevent text overflow issues.
+ * 
+ * CRITICAL: All properties ensure horizontal text rendering - no vertical stacking.
+ */
+.radar-node-label {
+  position: absolute;
+  display: inline-block;
+  /* Force horizontal text layout */
+  white-space: nowrap;
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  direction: ltr !important;
+  /* Typography */
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: normal;
+  /* Layout */
+  padding: 5px 10px;
+  border-radius: 6px;
+  min-width: 60px;
+  max-width: 140px;
+  width: auto;
+  height: auto;
+  /* Visual styling */
+  background: rgba(1, 15, 8, 0.95);
+  border: 1px solid rgba(109, 255, 180, 0.6);
+  color: #e6ffee;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  /* Text handling */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: normal;
+  word-wrap: normal;
+  /* Interaction */
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Self device label - centered above */
+.radar-node-label-self {
+  top: -36px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Peer labels - centered above the node */
+.radar-node-label-peer {
+  top: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Show label by default, hide on hover when tooltip appears */
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+/* Tooltip for device name on hover - replaces static label to prevent duplication */
+.radar-node-peer {
+  position: relative;
+}
+
+.radar-node-peer::after {
+  content: attr(data-device-name);
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Force horizontal text in tooltip */
+  white-space: nowrap;
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  direction: ltr !important;
+  /* Typography */
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: normal;
+  /* Layout */
+  padding: 6px 12px;
+  border-radius: 6px;
+  width: auto;
+  height: auto;
+  /* Visual styling */
+  background: rgba(1, 15, 8, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+  /* Text handling */
+  word-break: normal;
+  word-wrap: normal;
+  /* Interaction */
+  pointer-events: none;
+  z-index: 20;
+  /* Hidden by default, shown on hover */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+/* On hover: hide static label, show tooltip (only one visible at a time) */
+.radar-node-peer:hover .radar-node-label-peer {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.radar-node-peer:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+.radar-node-active .radar-node-dot {
+  animation: radar-pulse 1.8s ease-out infinite;
+}
+
+.radar-node-selected .radar-node-label {
+  border-color: #ffffff;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.4);
+}
+
+@keyframes radar-pulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.9;
+  }
+  70% {
+    transform: scale(1.4);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.9;
+  }
+}
+
+.dropzone {
+  position: relative;
+  padding: 18px 16px;
+  border-radius: 18px;
+  border: 1px dashed rgba(123, 240, 171, 0.6);
+  background: radial-gradient(
+      circle at top left,
+      rgba(79, 245, 160, 0.09),
+      transparent 55%
+    ),
+    rgba(3, 21, 13, 0.94);
+  color: #e5ffe5;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+.dropzone-disabled {
+  opacity: 0.55;
+  border-color: rgba(140, 176, 157, 0.6);
+}
+
+.dropzone-active {
+  border-color: rgba(180, 255, 210, 0.9);
+  box-shadow:
+    0 0 20px rgba(102, 255, 186, 0.4),
+    0 0 45px rgba(95, 255, 182, 0.22);
+}
+
+.dropzone-inner {
+  text-align: left;
+}
+
+.dropzone-title {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.dropzone-subtitle {
+  margin: 0 0 10px;
+  font-size: 12px;
+  color: #97c9a9;
+}
+
+.dropzone-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(120, 255, 182, 0.8);
+  background: radial-gradient(
+    circle at top,
+    rgba(120, 255, 182, 0.2),
+    rgba(0, 0, 0, 0.9)
+  );
+  color: #e5ffe5;
+  font-size: 12px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.dropzone-button input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.transfer-panel {
+  flex: 1;
+  min-height: 0;
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(50, 137, 98, 0.9);
+  background: radial-gradient(
+      circle at bottom right,
+      rgba(46, 191, 118, 0.12),
+      transparent 55%
+    ),
+    rgba(2, 14, 8, 0.96);
+}
+
+.transfer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.transfer-title {
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: #8fe5c0;
+}
+
+.transfer-empty {
+  margin: 0;
+  font-size: 12px;
+  color: #8bad9a;
+}
+
+.transfer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 260px;
+  overflow: auto;
+}
+
+.transfer-item {
+  padding: 8px 10px;
+  border-radius: 14px;
+  background: linear-gradient(
+    to bottom right,
+    rgba(6, 32, 20, 0.98),
+    rgba(4, 24, 14, 0.9)
+  );
+  border: 1px solid rgba(74, 179, 122, 0.9);
+}
+
+.transfer-row-main {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.transfer-filename {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.transfer-direction {
+  font-size: 14px;
+  color: #b5ffe0;
+}
+
+.transfer-name {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 210px;
+}
+
+.transfer-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.transfer-peer {
+  font-size: 11px;
+  color: #c0ffdd;
+}
+
+.transfer-status {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.transfer-status-in-progress {
+  background: rgba(255, 246, 178, 0.16);
+  color: #ffe9a3;
+}
+
+.transfer-status-queued {
+  background: rgba(178, 200, 255, 0.16);
+  color: #b3c9ff;
+}
+
+.transfer-status-completed {
+  background: rgba(147, 255, 199, 0.16);
+  color: #b7ffd6;
+}
+
+.transfer-status-failed {
+  background: rgba(255, 173, 173, 0.16);
+  color: #ffc0c0;
+}
+
+.transfer-row-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.transfer-progress-bar {
+  flex: 1;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(44, 78, 59, 0.9);
+  overflow: hidden;
+}
+
+.transfer-progress-fill {
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(116, 255, 190, 0.2),
+    rgba(116, 255, 190, 1)
+  );
+  transition: width 120ms linear;
+}
+
+.transfer-progress-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #bdd9ca;
+}
+
+.transfer-speed {
+  color: #aaf0cf;
+}
+

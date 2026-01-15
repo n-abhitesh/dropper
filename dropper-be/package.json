@@ -1,0 +1,10 @@
+{
+  "name": "pairdrop-signaling",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ws": "^8.16.0"
+  }
+}
