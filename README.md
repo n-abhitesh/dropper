@@ -1,6 +1,6 @@
 # Dropper
 
-A PairDrop-style local network file sharing application with radar-style UI.
+A local network file sharing application with radar-style UI.
 
 ## Features
 
